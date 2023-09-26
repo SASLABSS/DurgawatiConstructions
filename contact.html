@@ -256,7 +256,7 @@
             </div>
           </div>
           <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-            <form netlify method="post">
+            <form name="contact" method="POST" netlify action="/">
               <div class="row g-3">
                 <div class="col-md-6">
                   <div class="form-floating">
@@ -264,6 +264,7 @@
                       type="text"
                       class="form-control"
                       id="name"
+                      name="name"
                       placeholder="Your Name"
                     />
                     <label for="name">Your Name</label>
@@ -275,6 +276,7 @@
                       type="email"
                       class="form-control"
                       id="email"
+                      name="email"
                       placeholder="Your Email"
                     />
                     <label for="email">Your Email</label>
@@ -286,6 +288,7 @@
                       type="text"
                       class="form-control"
                       id="subject"
+                      name="subject"
                       placeholder="Subject"
                     />
                     <label for="subject">Subject</label>
@@ -297,6 +300,7 @@
                       class="form-control"
                       placeholder="Leave a message here"
                       id="message"
+                      name="message"
                       style="height: 150px"
                     ></textarea>
                     <label for="message">Message</label>
@@ -419,5 +423,23 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+      const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const myForm = event.target;
+        const formData = new FormData(myForm);
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString(),
+        })
+          .then(() => alert('Thank you for your submission'))
+          .catch((error) => alert(error));
+      };
+
+      document.querySelector('form').addEventListener('submit', handleSubmit);
+    </script>
   </body>
 </html>
